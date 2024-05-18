@@ -36,6 +36,12 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
+    const local_module = b.addModule("local_module", .{
+        .root_source_file = b.path("module/root.zig"),
+    });
+
+    exe.root_module.addImport("local_module", local_module);
+
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
     // step when running `zig build`).
