@@ -1,14 +1,12 @@
 const std = @import("std");
 const local_module = @import("local_module");
+const remote_module = @import("remote_module");
+extern fn add(a: i32, b: i32) i32;
 
 pub fn main() !void {
     const result = local_module.hello();
     std.debug.print("Hello {s}\n", .{result});
-}
 
-test "simple test" {
-    var list = std.ArrayList(i32).init(std.testing.allocator);
-    defer list.deinit(); // try commenting this out and see if zig detects the memory leak!
-    try list.append(42);
-    try std.testing.expectEqual(@as(i32, 42), list.pop());
+    const result2 = remote_module.hello();
+    std.debug.print("Hello {s}\n", .{result2});
 }

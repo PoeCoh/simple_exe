@@ -42,6 +42,13 @@ pub fn build(b: *std.Build) void {
 
     exe.root_module.addImport("local_module", local_module);
 
+    const remote_module = b.dependency("simple_lib", .{
+        .target = target,
+        .optimize = optimize,
+    }).module("remote_module");
+
+    exe.root_module.addImport("remote_module", remote_module);
+
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
     // step when running `zig build`).
